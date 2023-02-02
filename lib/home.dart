@@ -9,8 +9,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool isbtnclicked = false;
   String val = 0.toString();
+  var bmi = '';
   Widget build(BuildContext context) {
     void calc(double height, double weight) {
       double bmival = weight / (height * height / 10000);
@@ -19,18 +19,38 @@ class _HomeState extends State<Home> {
       });
     }
 
+    void result() {
+      if (double.parse(val) <= 18.5) {
+        setState(() {
+          bmi = 'You are in the UnderWeight range ';
+        });
+      } else if (double.parse(val) > 18.5 && double.parse(val) <= 24.9) {
+        setState(() {
+          bmi = 'You are in the Healty Weight range ';
+        });
+      } else if (double.parse(val) > 24.9 && double.parse(val) <= 30.0) {
+        setState(() {
+          bmi = 'You are in  Over Weight range ';
+        });
+      } else {
+        setState(() {
+          bmi = 'You are in the Obese range ';
+        });
+      }
+    }
+
     @override
     TextEditingController heightinput = TextEditingController();
     TextEditingController weightinput = TextEditingController();
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
-            'BMI Calculator',
-            style: TextStyle(letterSpacing: 4),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.pinkAccent,
+        title: const Text(
+          'BMI Calculator',
+          style: TextStyle(letterSpacing: 4),
         ),
+        centerTitle: true,
+        backgroundColor: Colors.pinkAccent,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -44,13 +64,11 @@ class _HomeState extends State<Home> {
                   color: Colors.white,
                   controller: heightinput,
                   label: 'Height',
-                  suffix: 'Cm',
                 ),
                 MeasurementCard(
                   color: Colors.white,
                   controller: weightinput,
                   label: 'Weight',
-                  suffix: 'Kg',
                 ),
               ],
             ),
@@ -63,8 +81,33 @@ class _HomeState extends State<Home> {
                     double h = double.parse(heightinput.text);
                     double w = double.parse(weightinput.text);
                     calc(h, w);
+                    result();
                     setState(() {
-                      isbtnclicked = !isbtnclicked;
+                      final snackBar = SnackBar(
+                        backgroundColor: Colors.pinkAccent,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        content: SizedBox(
+                          height: 250,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  bmi,
+                                  style: const TextStyle(overflow: TextOverflow.clip,fontSize: 25,fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  'BMI Range : ${val}',
+                                  style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        duration: const Duration(seconds: 2),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     });
                   },
                   style: ButtonStyle(
@@ -74,7 +117,8 @@ class _HomeState extends State<Home> {
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100)))),
                   child: Text('Calculate',
-                      style: TextStyle(fontSize: 13, color: Colors.grey.shade600))),
+                      style: TextStyle(
+                          fontSize: 13, color: Colors.grey.shade600))),
             ),
             const SizedBox(height: 50),
           ],

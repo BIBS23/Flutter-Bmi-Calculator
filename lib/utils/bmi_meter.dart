@@ -59,7 +59,7 @@ class BmiMeter extends StatelessWidget {
                   Colors.red.shade400,
                 ]),
                 label: 'Obesity',
-                labelStyle: GaugeTextStyle())
+                labelStyle: const GaugeTextStyle())
           ], pointers: <GaugePointer>[
             NeedlePointer(
               enableAnimation: true,
@@ -70,8 +70,8 @@ class BmiMeter extends StatelessWidget {
             ),
           ], annotations: <GaugeAnnotation>[
             GaugeAnnotation(
-              angle: 55,
-              positionFactor: 0.3,
+              angle: 80,
+              positionFactor: 0.6,
               widget: Text(value,
                   style: const TextStyle(
                   fontSize: 25, fontWeight: FontWeight.bold)),

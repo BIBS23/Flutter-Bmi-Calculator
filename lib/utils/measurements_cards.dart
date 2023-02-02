@@ -3,15 +3,12 @@ import 'package:flutter/material.dart';
 class MeasurementCard extends StatelessWidget {
   final color;
   final label;
-  final suffix;
   final TextEditingController controller;
   const MeasurementCard(
       {super.key,
       required this.color,
-      required this.suffix,
       required this.controller,
       required this.label});
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,13 +30,7 @@ class MeasurementCard extends StatelessWidget {
           keyboardType: TextInputType.number,
           style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           controller: controller,
-          decoration: InputDecoration(
-            suffixText: suffix,
-            suffixStyle: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
-            label: Center(child: Text(label)),
-            labelStyle:
-                const TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
+          decoration: const InputDecoration(
             border: InputBorder.none,
           ),
         ),
