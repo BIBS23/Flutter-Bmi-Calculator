@@ -3,35 +3,43 @@ import 'package:flutter/material.dart';
 class MeasurementCard extends StatelessWidget {
   final color;
   final label;
+  final suffix;
   final TextEditingController controller;
   const MeasurementCard(
-      {super.key, required this.color, required this.controller,
-      required this.label
-      });
+      {super.key,
+      required this.color,
+      required this.suffix,
+      required this.controller,
+      required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 50,
       width: 100,
       decoration: BoxDecoration(
-        color: color,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 7
-          )
-        ],
-      borderRadius: BorderRadius.circular(10)),
-      child: Center(
+          color: color,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.pink.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 5)
+          ],
+          borderRadius: BorderRadius.circular(100)),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: TextField(
+          textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           controller: controller,
           decoration: InputDecoration(
+            suffixText: suffix,
+            suffixStyle: TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
             label: Center(child: Text(label)),
-            labelStyle: TextStyle(fontSize: 15,fontWeight: FontWeight.normal),
+            labelStyle:
+                const TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
             border: InputBorder.none,
           ),
         ),

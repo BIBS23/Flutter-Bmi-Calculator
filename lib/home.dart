@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
     void calc(double height, double weight) {
       double bmival = weight / (height * height / 10000);
       setState(() {
-        val = bmival.toStringAsFixed(2);
+        val = bmival.toStringAsFixed(1);
       });
     }
 
@@ -23,13 +23,20 @@ class _HomeState extends State<Home> {
     TextEditingController heightinput = TextEditingController();
     TextEditingController weightinput = TextEditingController();
     return Scaffold(
-      appBar: AppBar(title: const Text('Bmi Calculator')),
+      appBar: AppBar(
+          title: const Text(
+            'BMI Calculator',
+            style: TextStyle(letterSpacing: 4),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.pinkAccent,
+        ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-           const SizedBox(height: 20),
+            const SizedBox(height: 90),
             BmiMeter(value: val),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -37,15 +44,17 @@ class _HomeState extends State<Home> {
                   color: Colors.white,
                   controller: heightinput,
                   label: 'Height',
+                  suffix: 'Cm',
                 ),
                 MeasurementCard(
                   color: Colors.white,
                   controller: weightinput,
                   label: 'Weight',
+                  suffix: 'Kg',
                 ),
               ],
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
             SizedBox(
               height: 50,
               width: 120,
@@ -59,37 +68,15 @@ class _HomeState extends State<Home> {
                     });
                   },
                   style: ButtonStyle(
-                  backgroundColor:
-                  MaterialStatePropertyAll(Colors.grey.shade700)),
-                  child:
-                  const Text('Calculate', style: TextStyle(fontSize: 13))),
+                      shadowColor: const MaterialStatePropertyAll(Colors.pink),
+                      backgroundColor:
+                          const MaterialStatePropertyAll(Colors.white),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100)))),
+                  child: Text('Calculate',
+                      style: TextStyle(fontSize: 13, color: Colors.grey.shade600))),
             ),
             const SizedBox(height: 50),
-            isbtnclicked
-                ? Container(
-                    height: 50,
-                    width: 140,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade700,
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black,
-                            spreadRadius: 2,
-                            blurRadius: 7)
-                      ]),
-                  child: Row(
-                    children: [
-                      const Text('BMI : ',
-                        style: TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold)
-                      ),
-                      Text(val,
-                        style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold)
-                      ),
-                    ],
-                  ),
-                ) : const Offstage(),
           ],
         ),
       ),
