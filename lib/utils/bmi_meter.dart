@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class BmiMeter extends StatelessWidget {
@@ -15,10 +16,10 @@ class BmiMeter extends StatelessWidget {
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.pink.withOpacity(0.5),
                 spreadRadius: 1,
                 blurRadius: 5,
-              )
+              ),
             ]),
         child: SfRadialGauge(axes: <RadialAxis>[
           RadialAxis(minimum: 0, maximum: 40, ranges: <GaugeRange>[
@@ -66,17 +67,18 @@ class BmiMeter extends StatelessWidget {
               animationType: AnimationType.easeInCirc,
               value: double.parse(value),
               needleStartWidth: 3,
-              needleColor: Colors.pink,
+              needleColor: Colors.pinkAccent,
               knobStyle:
                   const KnobStyle(knobRadius: 0.170, color: Colors.white),
             ),
           ], annotations: <GaugeAnnotation>[
             GaugeAnnotation(
-              angle: 80,
-              positionFactor: 0.6,
-              widget: Text(value,
+              angle: 85,
+              positionFactor: 0.8,
+              widget: GradientText(value,
                   style: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.bold)),
+                      fontSize: 30, fontWeight: FontWeight.bold),
+                  colors: const [Colors.red, Colors.blue]),
             ),
           ]),
         ]));

@@ -1,6 +1,8 @@
 import 'package:bmicalculator/utils/bmi_meter.dart';
 import 'package:bmicalculator/utils/measurements_cards.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -10,6 +12,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String audioasset = "lib/assets/buttontune.mp3";
+
   String val = 0.toString();
   var bmi = '';
   Widget build(BuildContext context) {
@@ -40,6 +44,10 @@ class _HomeState extends State<Home> {
       }
     }
 
+    String audioasset = "assets/audio/red-indian-music.mp3";
+
+    AudioPlayer player = AudioPlayer();
+
     @override
     TextEditingController heightinput = TextEditingController();
     TextEditingController weightinput = TextEditingController();
@@ -55,7 +63,7 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 90),
+            const SizedBox(height: 70),
             BmiMeter(value: val),
             const SizedBox(height: 50),
             Row(
@@ -90,47 +98,41 @@ class _HomeState extends State<Home> {
               height: 50,
               width: 120,
               child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     double h = double.parse(heightinput.text);
                     double w = double.parse(weightinput.text);
                     calc(h, w);
                     result();
-                    AudioPlayer()
-                        .play(AssetSource('lib/assets/buttonsound.mp3'));
-
-                    setState(() {
-                      final snackBar = SnackBar(
-                        backgroundColor: Colors.pinkAccent,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        content: SizedBox(
-                          height: 250,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  bmi,
-                                  style: const TextStyle(
-                                      overflow: TextOverflow.clip,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'BMI Range : $val',
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
+                    final snackBar = SnackBar(
+                      backgroundColor: Colors.pinkAccent,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      content: SizedBox(
+                        height: 250,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                bmi,
+                                style: const TextStyle(
+                                    overflow: TextOverflow.clip,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'BMI Range : $val',
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           ),
                         ),
-                        duration: const Duration(seconds: 2),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    });
+                      ),
+                      duration: const Duration(seconds: 2),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   style: ButtonStyle(
                       shadowColor: const MaterialStatePropertyAll(Colors.pink),
