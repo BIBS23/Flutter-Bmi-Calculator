@@ -1,5 +1,6 @@
 import 'package:bmicalculator/utils/bmi_meter.dart';
 import 'package:bmicalculator/utils/measurements_cards.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -22,15 +23,15 @@ class _HomeState extends State<Home> {
     void result() {
       if (double.parse(val) <= 18.5) {
         setState(() {
-          bmi = 'You are in the UnderWeight range ';
+          bmi = 'You are in UnderWeight range ';
         });
       } else if (double.parse(val) > 18.5 && double.parse(val) <= 24.9) {
         setState(() {
-          bmi = 'You are in the Healty Weight range ';
+          bmi = 'You are in  Healty Weight range ';
         });
       } else if (double.parse(val) > 24.9 && double.parse(val) <= 30.0) {
         setState(() {
-          bmi = 'You are in  Over Weight range ';
+          bmi = 'You are in Over Weight range ';
         });
       } else {
         setState(() {
@@ -63,13 +64,25 @@ class _HomeState extends State<Home> {
                 MeasurementCard(
                   color: Colors.white,
                   controller: heightinput,
-                  label: 'Height',
+                  label: 'CM',
                 ),
                 MeasurementCard(
                   color: Colors.white,
                   controller: weightinput,
-                  label: 'Weight',
+                  label: 'KG',
                 ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                Text('Height',
+                    style: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.w400)),
+                Text('Weight',
+                    style: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.w400))
               ],
             ),
             const SizedBox(height: 40),
@@ -82,6 +95,9 @@ class _HomeState extends State<Home> {
                     double w = double.parse(weightinput.text);
                     calc(h, w);
                     result();
+                    AudioPlayer()
+                        .play(AssetSource('lib/assets/buttonsound.mp3'));
+
                     setState(() {
                       final snackBar = SnackBar(
                         backgroundColor: Colors.pinkAccent,
@@ -92,14 +108,20 @@ class _HomeState extends State<Home> {
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
                                   bmi,
-                                  style: const TextStyle(overflow: TextOverflow.clip,fontSize: 25,fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      overflow: TextOverflow.clip,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   'BMI Range : ${val}',
-                                  style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),

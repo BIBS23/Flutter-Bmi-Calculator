@@ -30,7 +30,12 @@ class MeasurementCard extends StatelessWidget {
           keyboardType: TextInputType.number,
           style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
           controller: controller,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
+            suffix: Text(label,
+                style: const TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold)),
             border: InputBorder.none,
           ),
         ),

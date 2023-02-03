@@ -65,8 +65,10 @@ class BmiMeter extends StatelessWidget {
               enableAnimation: true,
               animationType: AnimationType.easeInCirc,
               value: double.parse(value),
-              knobStyle: const KnobStyle(
-              color: Colors.white, borderWidth: 50, knobRadius: 0.3),
+              needleStartWidth: 3,
+              needleColor: Colors.pink,
+              knobStyle:
+                  const KnobStyle(knobRadius: 0.170, color: Colors.white),
             ),
           ], annotations: <GaugeAnnotation>[
             GaugeAnnotation(
@@ -74,7 +76,7 @@ class BmiMeter extends StatelessWidget {
               positionFactor: 0.6,
               widget: Text(value,
                   style: const TextStyle(
-                  fontSize: 25, fontWeight: FontWeight.bold)),
+                      fontSize: 25, fontWeight: FontWeight.bold)),
             ),
           ]),
         ]));
