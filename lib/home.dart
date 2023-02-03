@@ -118,7 +118,7 @@ class _HomeState extends State<Home> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  'BMI Range : ${val}',
+                                  'BMI Range : $val',
                                   style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
@@ -142,7 +142,6 @@ class _HomeState extends State<Home> {
                       style: TextStyle(
                           fontSize: 13, color: Colors.grey.shade600))),
             ),
-            const SizedBox(height: 50),
           ],
         ),
       ),
